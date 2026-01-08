@@ -1,0 +1,49 @@
+version: "3"
+
+services: 
+  frontend:
+    container_name: frontend
+    restart: always
+    build: ./frontend
+    ports:
+      - "3001:3001"
+    depends_on:
+      - backend
+    networks:
+      - dockerPractice
+
+
+  backend:
+    container_name: backend
+    ports:
+    - "5500:5500"
+    build: ./backend
+    env_file:
+      - ./backend/.env
+    depends_on: 
+      - mongo_db
+    networks:
+      - dockerPractice
+
+
+  mongo_db:
+    container_name: mongo_db
+    image: mongo
+    restart: always
+    ports:
+      - "5501:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: vishnu
+      MONGO_INITDB_ROOT_PASSWORD: narayan
+    volumes:
+      - dockerpractice:/data/db  
+    networks: 
+      - dockerPractice 
+
+volumes:
+  dockerpractice:
+    driver: local
+
+networks:
+  dockerPractice:
+    driver: bridge
