@@ -1,7 +1,7 @@
 import { CheckIcon, Eye, EyeOff, LoaderCircle, XCircle } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { useSignupStep1Mutation } from "../services/user";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type Signup1 = {
   email: string;
@@ -159,10 +159,11 @@ function SignUp1() {
                   </p>
                 )}
               </div>
+              
               <button
                 type="submit"
-                disabled={!enableContinue || SignupLoading}
-                className={`py-2 px-4 border rounded-lg ${
+                disabled={!enableContinue || SignupLoading}  // disabled button works on the true condition if property with in is true then it will be disabled  
+                className={`py-2 px-4 border rounded-lg bg-blue-900 text-white ${
                   enableContinue
                     ? "cursor-pointer"
                     : "opacity-25 cursor-not-allowed"
@@ -176,9 +177,9 @@ function SignUp1() {
                   "Submit"
                 )}
               </button>
+              <p className="text-[14px] font-[500]">If you already have an account <span className="text-blue-600 underline"><Link to="/login">Login</Link></span></p>
               {apiError && <p className="text-red-500 text-sm">{apiError}</p>}
             </form>
-            <div className=""></div>
           </div>
         </div>
       </div>
